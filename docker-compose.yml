@@ -1,0 +1,41 @@
+version: "3"
+
+volumes:
+  public:
+  sqlite:
+
+services:
+  redis:
+    image: redis:latest
+    expose:
+      - "6379"
+  web:
+    build:
+      context: ./docker/web/
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    working_dir: /usr/src/web
+    volumes:
+      - ./web:/usr/src/web
+      - public:/usr/src/web/public
+      - sqlite:/usr/src/web/sqlite
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+    command: ./run.sh
+  nginx:
+    domainname: pols.xip.io
+    # restart: always
+    build:
+      context: ./docker/nginx/
+    ports:
+      - "8181:8181"
+    volumes:
+      - public:/var/www
+    links:
+      - web:web
+    depends_on:
+      - web
