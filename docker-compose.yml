@@ -1,7 +1,7 @@
 version: "3"
 
 volumes:
-  public:
+  static:
   sqlite:
 
 services:
@@ -19,7 +19,7 @@ services:
     working_dir: /usr/src/web
     volumes:
       - ./web:/usr/src/web
-      - public:/usr/src/web/public
+      - static:/usr/src/web/public/static
       - sqlite:/usr/src/web/sqlite
     links:
       - redis:redis
@@ -27,14 +27,15 @@ services:
       - redis
     command: ./run.sh
   nginx:
-    domainname: pols.xip.io
+    domainname: localhost
     # restart: always
     build:
       context: ./docker/nginx/
     ports:
       - "8181:8181"
     volumes:
-      - public:/var/www
+      - ./web/public:/var/www:ro
+      - static:/var/www/static:ro
     links:
       - web:web
     depends_on:

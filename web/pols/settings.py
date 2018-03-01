@@ -38,7 +38,7 @@ ALLOWED_HOSTS: list = env('ALLOWED_HOSTS', cast=list, default=['*'])
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -64,7 +64,7 @@ TEMPLATES = [
         'DIRS': [
             root('pols', 'templates'),
         ],
-        'APP_DIRS': False,
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -118,7 +118,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
-    root('pols', 'static'),
+    root('pols', 'public', 'static'),
 ]
 STATIC_ROOT = root('public', 'static')
 if not op.exists(STATIC_ROOT):
