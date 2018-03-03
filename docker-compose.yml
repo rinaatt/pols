@@ -10,7 +10,8 @@ networks:
 
 services:
   redis:
-    image: redis:latest
+    build:
+      context: ./docker/redis
     networks:
       - net
     expose:
@@ -22,11 +23,11 @@ services:
       - "8000"
     env_file:
       - .env
-    working_dir: /usr/src/web
+    working_dir: /var/web
     volumes:
-      - ./web:/usr/src/web
-      - static:/usr/src/web/public/static
-      - sqlite:/usr/src/web/sqlite
+      - ./web:/var/web
+      - static:/var/web/public/static
+      - sqlite:/var/web/sqlite
     networks:
       - net
     depends_on:
