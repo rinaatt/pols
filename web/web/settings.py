@@ -56,13 +56,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pols.urls'
+ROOT_URLCONF = 'web.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            root('pols', 'templates'),
+            root('web', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pols.wsgi.application'
+WSGI_APPLICATION = 'web.wsgi.application'
 
 
 # Database
@@ -118,7 +118,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
-    root('pols', 'static'),
+    root('web', 'static'),
 ]
 STATIC_ROOT = root('public', 'static')
 if not op.exists(STATIC_ROOT):
