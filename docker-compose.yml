@@ -4,9 +4,15 @@ volumes:
   static:
   sqlite:
 
+networks:
+  net:
+    driver: bridge
+
 services:
   redis:
     image: redis:latest
+    networks:
+      - net
     expose:
       - "6379"
   web:
@@ -21,22 +27,22 @@ services:
       - ./web:/usr/src/web
       - static:/usr/src/web/public/static
       - sqlite:/usr/src/web/sqlite
-    links:
-      - redis:redis
+    networks:
+      - net
     depends_on:
       - redis
     command: ./run.sh
   nginx:
-    domainname: localhost
+    domainname: "pols.local"
     # restart: always
     build:
       context: ./docker/nginx/
     ports:
-      - "8181:8181"
+      - "8001:80"
     volumes:
       - ./web/public:/var/www:ro
       - static:/var/www/static:ro
-    links:
-      - web:web
+    networks:
+      - net
     depends_on:
       - web

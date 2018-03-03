@@ -118,7 +118,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
-    root('pols', 'public', 'static'),
+    root('pols', 'static'),
 ]
 STATIC_ROOT = root('public', 'static')
 if not op.exists(STATIC_ROOT):

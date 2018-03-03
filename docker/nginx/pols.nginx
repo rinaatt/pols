@@ -5,7 +5,7 @@ map $status $loggable {
 
 server {
 
-    listen 8181;
+    listen 80;
     server_name localhost;
     charset utf-8;
 
